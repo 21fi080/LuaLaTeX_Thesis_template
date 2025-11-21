@@ -1,0 +1,2 @@
+# LuaLaTeX_Thesis_template
+日本語と簡体字の混植に対応した卒論梗概テンプレートです。
