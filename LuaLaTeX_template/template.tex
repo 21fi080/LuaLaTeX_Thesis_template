@@ -1,0 +1,141 @@
+% !TEX program = lualatex
+\documentclass[a4paper,10pt,twocolumn]{ltjsarticle}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{url}
+\usepackage{cite}
+\usepackage{indentfirst}
+
+% --- 1. 用紙・余白設定 ---
+\usepackage[top=20mm, bottom=30mm, left=20mm, right=20mm]{geometry}
+
+% --- 2. フォント設定 (LuaLaTeX) ---
+\usepackage{luatexja-fontspec}
+
+% 欧文フォント: Times New Roman
+\setmainfont{Times New Roman}[Ligatures=TeX]
+
+% 日本語フォント: MS明朝, 太字はMSゴシック
+\setmainjfont{MS Mincho}[
+  BoldFont = MS Gothic,
+  YokoFeatures = {JFM=prop}
+]
+% \sffamily (サンセリフ) を呼び出した時はMSゴシック
+\setsansjfont{MS Gothic}
+
+% 簡体字フォント設定 (scale=0.93)
+\newjfontfamily\chnfont{FandolSong-Regular}[
+  BoldFont = FandolHei-Regular,
+  Scale = 0.93
+]
+\newcommand{\chn}[1]{{\chnfont #1}}
+
+% --- 3. 見出し・キャプション設定 ---
+\usepackage{titlesec}
+\usepackage{caption}
+
+% 章題 (Section): MSゴシック, 12pt
+\titleformat{\section}
+  {\large\bfseries\sffamily}
+  {\thesection}{1em}{}
+
+% 節題 (Subsection): MSゴシック, 10pt
+\titleformat{\subsection}
+  {\normalsize\bfseries\sffamily}
+  {\thesubsection}{1em}{}
+
+% キャプション: MS明朝, 10pt
+\captionsetup{font={rm,md}}
+\renewcommand{\figurename}{図}
+\renewcommand{\tablename}{表}
+
+% ページ番号を削除
+\pagestyle{empty}
+
+% --- 文書開始 ---
+\begin{document}
+
+% --- タイトル部 ---
+\twocolumn[
+    \begin{center}
+        % 研究表題(日本語): MSゴシック, 14pt
+        {\fontsize{14pt}{20pt}\selectfont \sffamily \bfseries
+            日本語と簡体字の混植に対応した卒論梗概テンプレート
+        } \\
+        \vspace{5mm}
+
+        % 研究表題(英語): Times New Roman (Bold), 14pt
+        {\fontsize{14pt}{20pt}\selectfont \bfseries
+            Thesis Template Supporting Mixed Japanese and Simplified Chinese Text
+        } \\
+        \vspace{5mm}
+
+        % 著者情報: MS明朝/Times, 12pt
+        % ここを表組み(tabular)に変更して中央揃えを実現
+        {\large
+            \begin{tabular}{c@{\hskip 3em}c} % 学生と教員の間に少し広めの空白(3em)を設定
+                99FI999 電大 未来子 & 指導教員 未来 太郎 \\
+                Mikiko Dendai  & Taro Mirai
+            \end{tabular}
+        }
+    \end{center}
+    \vspace{5mm}
+]
+
+% --- 本文開始 ---
+
+\section{はじめに}
+本稿では，Lua\LaTeX を用いた多言語混在文書の作成手法について述べる．
+これは本文の日本語（MS明朝 10pt）のテストである．
+句読点は全角の「，」「．」を用いる．
+
+英語のテスト．This is the main text in Times New Roman (10pt).
+
+\section{簡体字の表示について}
+従来のp\LaTeX 環境では困難であった簡体字の直接記述を，Lua\TeX -jaの機能を用いて実現した．
+
+\begin{itemize}
+    \item 日本語の骨：骨（MS明朝）
+    \item 簡体字の骨：\chn{骨}（FandolSong, Scale 0.93）
+\end{itemize}
+
+文章中の混在テスト：
+\chn{中国语的测试。这里使用了 FandolSong 字体，并且调整了大小以匹配日文字体。}
+このように，違和感なく混植が可能である．
+
+\section{体裁の確認}
+\subsection{フォント設定}
+表\ref{tab:fonts}に，指定されたフォント設定を示す．
+章題はMSゴシック12pt，節題はMSゴシック10ptで設定されている．
+
+\begin{table}[h]
+    \centering
+    \caption{フォント設定の確認}
+    \label{tab:fonts}
+    \begin{tabular}{lll}
+        \toprule
+        項目  & 和文フォント             & 欧文フォント                          \\
+        \midrule
+        表題  & {\sffamily MSゴシック} & \textbf{Times New Roman (Bold)} \\
+        本文  & {\rmfamily MS明朝}   & Times New Roman                 \\
+        簡体字 & \chn{宋体 (SongTi)}  & -                               \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\subsection{図表の配置}
+図表のキャプションはMS明朝10ptとし，1行の場合は中央揃えとなる設定を適用している．
+
+\section{まとめ}
+本テンプレートはあくまで非公式であることに注意し，使用に際しては自己責任で行うこと．
+VScode以外のエディタでは，動作確認を行っていないため，適宜調整が必要となる可能性がある．
+また，最低限のパッケージのみを導入しているため，必要に応じて追加のパッケージを導入することが望ましい．
+
+% 参考文献
+\begin{thebibliography}{9}
+    \bibitem{ref1} 著者名, ``表題,'' 雑誌名, vol.1, no.1, pp.1-8, 2024.
+\end{thebibliography}
+
+\end{document}
